@@ -36,6 +36,7 @@
   display: flex;
   flex-direction: column;
   gap: 35px;
+  padding-bottom: 20px;
 }
 
 .habbit-button {
@@ -48,7 +49,19 @@
   border: none;
   background-color: #FFF;
   cursor: pointer;
+  transition: 0.5s;
 }
+
+.habbit-button:hover {
+  background-color: #5050f926;
+  transition: 0.5s;
+}
+
+.habbit-button-active {
+  background-color: #5050f926;
+  transition: 0.5s;
+}
+
 
 .habbit-img {
   width: 25px;
@@ -63,8 +76,14 @@
   height: 45px;
   border-radius: 14px;
   border: 1px solid #CAD5FF;
-  background-color: #FFF;
   cursor: pointer;
+  transition: 0.5s;
+  background-color: #FBFAFF;
+}
+
+.habbit-add:hover {
+  background-color:#4949e7f0;
+  transition: 0.5s;
 }
 
 .habit-description {
@@ -159,6 +178,12 @@
   justify-content: center;
   align-items: center;
   margin-left: 14px;
+  transition: 0.5s;
+}
+
+.done:hover { 
+  background-color: #c4c1f4;
+  transition: 0.5s;
 }
 
 .input-text {
