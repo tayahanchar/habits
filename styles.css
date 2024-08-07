@@ -118,11 +118,22 @@
   color: #232360;
 }
 
-.progress input {
+progress {
   width: 235px;
   height: 5px;
   border-radius: 4px;
   border: 1px solid #E6E9ED;
+  background-color: #5051F9;
+}
+
+progress::-webkit-progress-bar {
+  border-radius: 4px;
+  background: #E6E9ED;
+}
+
+progress::-webkit-progress-value { 
+  background: #5051F9;
+  border-radius: 4px;
 }
 
 .habit-bottom {

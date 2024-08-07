@@ -3,33 +3,29 @@ const dataJSON = [
     id: 566,
     img: 1,
     title: "Sport",
-    target: 10,
     days: ["Ferst day...", "Sec day", "Next day"],
   },
   {
     id: 6545,
     img: 4,
     title: "Run",
-    target: 20,
     days: ["Ferst day...", "Sec day", "Next day", "Another day"],
   },
   {
     id: 65435,
     img: 1,
     title: "Run7777",
-    target: 20,
     days: [],
   },
   {
     id: 875,
     img: 4,
     title: "Run",
-    target: 20,
     days: ["Ferst day...", "Sec day", "Next day", "Another day"],
   },
 ];
 
-let habits;
+let habits = [];
 let activeHabitId;
 getDataFromLS();
 
@@ -64,6 +60,10 @@ function showHabitDetails(habitId) {
   currentHabit = habits.find((habit) => habit.id === habitId);
 
   document.querySelector(".habit-title").textContent = currentHabit.title;
+  document.querySelector(
+    ".days-progress"
+  ).textContent = `${currentHabit.days.length} of 21 days`;
+  document.querySelector("progress").value = currentHabit.days.length;
 
   const daysContainer = document.querySelector(".habit-bottom");
   daysContainer.innerHTML = "";
@@ -93,7 +93,29 @@ function showHabitDetails(habitId) {
   `;
 
   daysContainer.insertAdjacentHTML("beforeend", newDayHTML);
+
+  // document.querySelector(".done").addEventListener("click", addNewDay);
 }
+
+// function addNewDay() {
+//   const comment = document.querySelector(".input-text").value;
+
+//   const daysContainer = document.querySelector(".habit-bottom");
+
+//   currentHabit = habits.find((habit) => habit.id === activeHabitId);
+
+//   const dayHTML = `<div class="habit-inf">
+//     <p class="habit-day">Day ${currentHabit.days.length + 1}</p>
+//     <div class="habit-comment">
+//       <p>${comment}</p>
+//       <button class="delete-habit">
+//         <img src="./images/shape.svg" alt="delete">
+//       </button>
+//     </div>
+//   </div>`;
+
+//   daysContainer.insertAdjacentHTML("beforeend", dayHTML);
+// }
 
 function changeActiveHabit(event) {
   if (
@@ -114,3 +136,11 @@ function changeActiveHabit(event) {
     showHabitDetails(activeHabitId);
   }
 }
+
+///// add new habit ////////
+
+// document.querySelector(".habbit-button").addEventListener("click", addNewHabit);
+
+// function addNewHabit() {
+//   uuidv4();
+// }
