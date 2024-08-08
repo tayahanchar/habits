@@ -1,30 +1,3 @@
-const dataJSON = [
-  {
-    id: 566,
-    img: 1,
-    title: "Sport",
-    days: ["Ferst day...", "Sec day", "Next day"],
-  },
-  {
-    id: 6545,
-    img: 4,
-    title: "Run",
-    days: ["Ferst day...", "Sec day", "Next day", "Another day"],
-  },
-  {
-    id: 65435,
-    img: 1,
-    title: "Run7777",
-    days: [],
-  },
-  {
-    id: 875,
-    img: 4,
-    title: "Run",
-    days: ["Ferst day...", "Sec day", "Next day", "Another day"],
-  },
-];
-
 let habits = [];
 let activeHabitId;
 getDataFromLS();
@@ -76,9 +49,6 @@ function showHabitDetails(habitId) {
     <p class="habit-day">Day ${index + 1}</p>
     <div class="habit-comment">
       <p>${day}</p>
-      <button class="delete-habit">
-        <img src="./images/shape.svg" alt="delete">
-      </button>
     </div>
   </div>`;
 
