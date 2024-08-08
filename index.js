@@ -52,12 +52,15 @@ function showHabitsList() {
         </button>`;
 
     habitsContainer.insertAdjacentHTML("beforeend", HTMLHabit);
-    habitsContainer.addEventListener("click", changeActiveHabit);
   });
 }
 
+document
+  .querySelector(".habits-list")
+  .addEventListener("click", changeActiveHabit);
+
 function showHabitDetails(habitId) {
-  currentHabit = habits.find((habit) => habit.id === habitId);
+  const currentHabit = habits.find((habit) => habit.id === habitId);
 
   document.querySelector(".habit-title").textContent = currentHabit.title;
   document.querySelector(
@@ -137,10 +140,89 @@ function changeActiveHabit(event) {
   }
 }
 
-///// add new habit ////////
+/// add new habit ////////
 
-// document.querySelector(".habbit-button").addEventListener("click", addNewHabit);
+document
+  .querySelector(".habbit-add")
+  .addEventListener("click", openModalWindow);
 
-// function addNewHabit() {
-//   uuidv4();
-// }
+document
+  .querySelector(".modal-img-list")
+  .addEventListener("click", chooseNewHabitImg);
+
+document
+  .querySelector(".modal-window-add")
+  .addEventListener("click", addNewHabit);
+
+function openModalWindow() {
+  document.querySelector(".modal").style.display = "flex";
+  document.querySelector(".close").addEventListener("click", closeModalWindow);
+}
+
+function chooseNewHabitImg(event) {
+  if (event.target.closest(".habbit-button-modal")) {
+    document
+      .querySelector(".habbit-button-modal-active")
+      .classList.remove("habbit-button-modal-active");
+    event.target
+      .closest(".habbit-button-modal")
+      .classList.add("habbit-button-modal-active");
+  }
+}
+
+function closeModalWindow() {
+  document
+    .querySelector(".close")
+    .removeEventListener("click", closeModalWindow);
+  document.querySelector(".modal").style.display = "none";
+
+  document
+    .querySelector(".habbit-button-modal-active")
+    .classList.remove("habbit-button-modal-active");
+  document
+    .querySelectorAll(".habbit-button-modal")[0]
+    .classList.add("habbit-button-modal-active");
+
+  document.querySelector(".modal-window-input").value = "";
+}
+
+function addNewHabit() {
+  const img = document.querySelector(".habbit-button-modal-active").dataset.img;
+  const title = document.querySelector(".modal-window-input").value;
+
+  if (!title.trim()) return;
+
+  const id = Math.ceil(Math.random() * 10000);
+
+  const newHabitHTML = `<button class="habbit-button" data-id=${id}>
+          <img class="habbit-img" src="./images/${img}.svg" alt="habit">
+        </button>`;
+
+  const habitsContainer = document.querySelector(".habits-list");
+  habitsContainer.insertAdjacentHTML("beforeend", newHabitHTML);
+
+  document.querySelector(".modal-window-input").value = "";
+
+  document
+    .querySelector(".habbit-button-modal-active")
+    .classList.remove("habbit-button-modal-active");
+  document
+    .querySelectorAll(".habbit-button-modal")[0]
+    .classList.add("habbit-button-modal-active");
+
+  createNewHabit(img, title, id);
+  closeModalWindow();
+}
+
+function createNewHabit(img, title, id) {
+  const habit = {
+    id: id,
+    img: img,
+    title: title,
+    days: [],
+  };
+
+  habits.push(habit);
+
+  localStorage.setItem("habits", JSON.stringify(habits));
+}
