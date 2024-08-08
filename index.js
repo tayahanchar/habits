@@ -85,6 +85,17 @@ function showHabitDetails(habitId) {
     daysContainer.insertAdjacentHTML("beforeend", dayHTML);
   });
 
+  if (currentHabit.days.length >= 21) {
+    const doneMessage = `
+    <h3 class="done-message">Done!!!</h3>
+    `;
+
+    document
+      .querySelector(".habit-bottom")
+      .insertAdjacentHTML("beforeend", doneMessage);
+    return;
+  }
+
   const newDayHTML = `
   <div class="habit-inf">
           <p class="habit-day">Day ${currentHabit.days.length + 1}</p>
@@ -97,28 +108,27 @@ function showHabitDetails(habitId) {
 
   daysContainer.insertAdjacentHTML("beforeend", newDayHTML);
 
-  // document.querySelector(".done").addEventListener("click", addNewDay);
+  document.querySelector(".done").addEventListener("click", addNewDay);
 }
 
-// function addNewDay() {
-//   const comment = document.querySelector(".input-text").value;
+function addNewDay() {
+  const comment = document.querySelector(".input-text").value;
 
-//   const daysContainer = document.querySelector(".habit-bottom");
+  if (!comment.trim()) return;
 
-//   currentHabit = habits.find((habit) => habit.id === activeHabitId);
+  habits.map((habit) => {
+    if (habit.id !== activeHabitId) {
+      return habit;
+    } else {
+      habit.days.push(comment);
+      return habit;
+    }
+  });
 
-//   const dayHTML = `<div class="habit-inf">
-//     <p class="habit-day">Day ${currentHabit.days.length + 1}</p>
-//     <div class="habit-comment">
-//       <p>${comment}</p>
-//       <button class="delete-habit">
-//         <img src="./images/shape.svg" alt="delete">
-//       </button>
-//     </div>
-//   </div>`;
+  localStorage.setItem("habits", JSON.stringify(habits));
 
-//   daysContainer.insertAdjacentHTML("beforeend", dayHTML);
-// }
+  showHabitDetails(activeHabitId);
+}
 
 function changeActiveHabit(event) {
   if (
@@ -139,8 +149,6 @@ function changeActiveHabit(event) {
     showHabitDetails(activeHabitId);
   }
 }
-
-/// add new habit ////////
 
 document
   .querySelector(".habbit-add")
